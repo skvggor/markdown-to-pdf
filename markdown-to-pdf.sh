@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# Diretório de destino para os arquivos PDF
+# Destination directory for PDF files
 DEST_DIR="PDF"
 mkdir -p "$DEST_DIR"
 
 for mdfile in $(find . -name "*.md"); do
-  # Ignora o arquivo README.md
+  # Ignore the README.md file
   if [ "$(basename "$mdfile")" != "README.md" ]; then
     pdffile="${mdfile%.md}.pdf"
     pdffile_dest="$DEST_DIR/$(basename $pdffile)"
 
     current_date=$(date "+%d/%m/%Y")
 
-    echo -e "Data de geração: $current_date  \n" | cat - "$mdfile" > temp.md
+    echo -e "Generation date: $current_date  \n" | cat - "$mdfile" > temp.md
 
     pandoc temp.md -s -o "$pdffile_dest"
 
@@ -20,4 +20,4 @@ for mdfile in $(find . -name "*.md"); do
   fi
 done
 
-echo "Conversão concluída. Arquivos PDF estão no diretório '$DEST_DIR'."
+echo "Conversion completed. PDF files are in the '$DEST_DIR' directory."
